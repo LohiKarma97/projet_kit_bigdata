@@ -9,3 +9,6 @@ avec Poetry, la programmation orientée objet, le type hinting, la gestion des l
 des normes PEP 8, la gestion des exceptions, la sécurité, les tests unitaires avec pytest, le
 test coverage, la documentation avec Sphinx, et la mise en place d'un pipeline CI/CD avec
 GitHub Actions.
+
+# Comment executer les tests
+```python3 -m unittest tests/test_tache.py```

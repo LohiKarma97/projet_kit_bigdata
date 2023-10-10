@@ -12,3 +12,14 @@ GitHub Actions.
 
 # Comment executer les tests
 ```python3 -m unittest tests/test_tache.py```
+
+A faire :
+setup.py Poetry pour gestion des versions
+Instaurer règles PEP8
+Type Hinting
+Insérer des loggings & gestion des exceptions
+Vérifier sécurité
+Etoffer tests unitaire
+Test coverage
+CI/CD
+Documentation !

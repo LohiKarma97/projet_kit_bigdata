@@ -43,19 +43,19 @@ class Tache:
         """
         self.status = status
         self.projet = projet
-        self.Nom = Nom
-        self.Description = Description
+        self.nom = Nom
+        self.description = Description
 
         if isinstance(horodatage, int) and horodatage >= 0:
             self.horodatage = horodatage
-            logging.info(f"Tache '{self.Nom}' a été créé avec succès.")
+            logging.info(f"Tache '{self.nom}' a été créé avec succès.")
         else:
             logging.error("L'horodatage doit être un entier non négatif.")
             raise ValueError("L'horodatage doit être un entier non négatif.")
 
     def __str__(self):
         """Returns a string representation of the Tache object."""
-        return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, Nom={self.Nom}, Description={self.Description})"
+        return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, Nom={self.nom}, Description={self.description})"
 
 # Exemple d'utilisation
 try:

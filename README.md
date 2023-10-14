@@ -13,8 +13,14 @@ GitHub Actions.
 # Comment executer les tests
 ```python3 -m unittest tests/test_tache.py```
 
+# Poetry
+install poetry module (pip or linux command)
+poetry install (dl l'environement)
+poetry env info (vérifier la config, notamment path)
+projet shell (let's begin !)
+
 A faire :
-setup.py Poetry pour gestion des versions
+setup.py  -> .toml :Poetry pour gestion des versions = OK
 Instaurer règles PEP8
 Type Hinting
 Insérer des loggings & gestion des exceptions

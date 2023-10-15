@@ -1,10 +1,12 @@
-from todolist.Tache import Tache, TacheStatus  # Assurez-vous que TacheStatus est bien défini dans le module 'tache'
+# Assurez-vous que TacheStatus est bien défini dans le module 'tache'
+from todolist.Tache import Tache, TacheStatus
 from typing import Union, List
+
 
 class TacheIngenieur(Tache):
     """
     Classe héritée de Tache pour gérer des tâches d'ingénierie.
-    
+
     :param TacheStatus status: Le statut de la tâche (doit être une valeur de l'enum TacheStatus).
     :param str projet: Le projet auquel la tâche appartient.
     :param Union[int, str] horodatage: L'horodatage associé à la tâche.

@@ -1,10 +1,11 @@
 from todolist.Tache import Tache, TacheStatus
 from typing import Union
 
+
 class TacheComercial(Tache):
     """
     Classe héritée de Tache pour gérer des tâches commerciales.
-    
+
     :param TacheStatus status: Le statut de la tâche (doit être une valeur de l'enum TacheStatus).
     :param str projet: Le projet auquel la tâche appartient.
     :param Union[int, str] horodatage: L'horodatage associé à la tâche.

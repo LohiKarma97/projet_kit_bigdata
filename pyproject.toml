@@ -2,7 +2,7 @@
 name = "todolist"
 version = "0.1.0"
 description = ""
-authors = ["leo.barberis@telecom-paris.fr <leo.barberis@telecom-paris.fr>"]
+authors = ["Leo Barberis <leo.barberis@telecom-paris.fr>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

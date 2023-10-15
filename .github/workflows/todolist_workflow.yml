@@ -12,8 +12,8 @@ jobs:
   autopep8:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
         with:
           python-version: '3.11'
       - run: pip install autopep8
@@ -28,8 +28,8 @@ jobs:
     needs: autopep8
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
         with:
           python-version: '3.11'
       - run: curl -sSL https://install.python-poetry.org | python3 -
@@ -40,8 +40,8 @@ jobs:
     needs: unittest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
         with:
           python-version: '3.11'
       - run: curl -sSL https://install.python-poetry.org | python3 -
@@ -53,8 +53,8 @@ jobs:
     needs: coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
         with:
           python-version: '3.11'
       - run: curl -sSL https://install.python-poetry.org | python3 -

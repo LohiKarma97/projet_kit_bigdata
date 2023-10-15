@@ -5,9 +5,10 @@ from typing import Union
 # Configure le logging
 logging.basicConfig(level=logging.INFO)
 
+
 class TacheStatus(Enum):
     """Enumeration for Tache Status.
-    
+
     Attributes:
         EN_COURS: Tache is ongoing.
         TERMINER: Tache is completed.
@@ -17,9 +18,10 @@ class TacheStatus(Enum):
     TERMINER = "terminer"
     A_FAIRE = "à faire"
 
+
 class Tache:
     """Tache class to manage Taches.
-    
+
     Attributes:
         status (TacheStatus): The status of the Tache.
         projet (str): The project to which the Tache belongs.
@@ -27,17 +29,17 @@ class Tache:
         Nom (str): The name of the Tache.
         Description (str): The description of the Tache.
     """
-    
+
     def __init__(self, status: TacheStatus, projet: str, horodatage: Union[int, str], Nom: str, Description: str):
         """Initializes a Tache object.
-        
+
         Args:
             status (TacheStatus): The status of the Tache.
             projet (str): The project to which the Tache belongs.
             horodatage (Union[int, str]): The timestamp of the Tache.
             Nom (str): The name of the Tache.
             Description (str): The description of the Tache.
-            
+
         Raises:
             ValueError: If the timestamp is negative.
         """
@@ -57,12 +59,15 @@ class Tache:
         """Returns a string representation of the Tache object."""
         return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, Nom={self.Nom}, Description={self.Description})"
 
+
 # Exemple d'utilisation
 try:
-    t1 = Tache(TacheStatus.EN_COURS, "Projet A", 1633897200, "Tâche 1", "Cette tâche est la première.")
+    t1 = Tache(TacheStatus.EN_COURS, "Projet A", 1633897200,
+               "Tâche 1", "Cette tâche est la première.")
     print(t1)
-    
-    t2 = Tache(TacheStatus.A_FAIRE, "Projet B", -1633998200, "Tâche 2", "Cette tâche est la deuxième.")
+
+    t2 = Tache(TacheStatus.A_FAIRE, "Projet B", -1633998200,
+               "Tâche 2", "Cette tâche est la deuxième.")
     print(t2)
 except ValueError as e:
     logging.error(f"Une erreur s'est produite: {e}")

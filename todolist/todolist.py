@@ -4,6 +4,7 @@ from todolist.Tache import Tache
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 
+
 class ToDoList:
     """Class to manage a list of Taches."""
 

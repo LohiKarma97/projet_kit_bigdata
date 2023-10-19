@@ -66,7 +66,7 @@ try:
                "Tâche 1", "Cette tâche est la première.")
     print(t1)
 
-    t2 = Tache(TacheStatus.A_FAIRE, "Projet B", -1633998200,
+    t2 = Tache(TacheStatus.A_FAIRE, "Projet B", 1633998200,
                "Tâche 2", "Cette tâche est la deuxième.")
     print(t2)
 except ValueError as e:

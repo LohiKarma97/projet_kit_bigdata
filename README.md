@@ -13,6 +13,22 @@ GitHub Actions.
 # Comment executer les tests
 ```python3 -m unittest tests/test_tache.py```
 
+# Poetry
+install poetry module (linux command -slide 18)
+poetry install (dl l'environement)
+poetry env info (vérifier la config, notamment path)
+projet shell (let's begin !)
+poetry show (statut des dépendances)
+poetry export -f requirements.txt > requirements.txt
+
+NB : .venv dans le repo avec 'poetry config virtualenvs.in-project true'
+.gitignore déplacé au root du repo
+
+# PEP8
+utilisation de flake8
+poetry add --dev flake8
+poetry run flake8 (vérifie le code)
+
 A faire :
 setup.py Poetry pour gestion des versions
 Instaurer règles PEP8

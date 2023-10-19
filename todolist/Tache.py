@@ -55,11 +55,12 @@ class Tache:
                 logging.info(f"Tache '{self.nom}' a été créé avec succès.")
             else:
                 logging.error("L'horodatage doit être un entier non négatif.")
-                raise ValueError("L'horodatage doit être un entier non négatif.")
-        else :
+                raise ValueError(
+                    "L'horodatage doit être un entier non négatif.")
+        else:
             self.horodatage = int(time.time())
-            logging.info(f"Tache '{self.nom}' a été créé avec succès - horodatage par défault.")
-
+            logging.info(
+                f"Tache '{self.nom}' a été créé avec succès - horodatage par défault.")
 
     def __str__(self):
         """Returns a string representation of the Tache object."""

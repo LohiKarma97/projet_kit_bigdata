@@ -40,10 +40,10 @@ class TestToDoList(unittest.TestCase):
     def test_afficher(self) -> None:
         """Test showing the ongoing task."""
         tache = Tache(nom="Test Task", description="This is a test task.")
-        
+
         with patch("builtins.print") as mock_print:
             self.todo_list.afficher(tache)
-            
+
         mock_print.assert_called_once_with(tache)
         logging.info("Task displayed successfully.")
 

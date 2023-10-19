@@ -1,5 +1,5 @@
 import logging
-from todolist.Tache import Tache
+from todolist.tache import Tache
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)

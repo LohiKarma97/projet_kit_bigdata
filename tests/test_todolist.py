@@ -6,6 +6,7 @@ from todolist.todolist import ToDoList
 # Initialize logging for the test module
 logging.basicConfig(level=logging.INFO)
 
+
 class TestToDoList(unittest.TestCase):
 
     def setUp(self) -> None:
@@ -43,6 +44,7 @@ class TestToDoList(unittest.TestCase):
             self.todo_list.afficher(tache)
         self.assertIn('INFO:root:Tache added: Test Task', cm.output)
         logging.info("Task displayed successfully.")
+
 
 if __name__ == '__main__':
     unittest.main()

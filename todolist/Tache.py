@@ -26,38 +26,38 @@ class Tache:
         status (TacheStatus): The status of the Tache.
         projet (str): The project to which the Tache belongs.
         horodatage (Union[int, str]): The timestamp of the Tache.
-        Nom (str): The name of the Tache.
-        Description (str): The description of the Tache.
+        nom (str): The name of the Tache.
+        description (str): The description of the Tache.
     """
 
-    def __init__(self, status: TacheStatus, projet: str, horodatage: Union[int, str], Nom: str, Description: str):
+    def __init__(self, status: TacheStatus, projet: str, horodatage: Union[int, str], nom: str, description: str):
         """Initializes a Tache object.
 
         Args:
             status (TacheStatus): The status of the Tache.
             projet (str): The project to which the Tache belongs.
             horodatage (Union[int, str]): The timestamp of the Tache.
-            Nom (str): The name of the Tache.
-            Description (str): The description of the Tache.
+            nom (str): The name of the Tache.
+            description (str): The description of the Tache.
 
         Raises:
             ValueError: If the timestamp is negative.
         """
         self.status = status
         self.projet = projet
-        self.Nom = Nom
-        self.Description = Description
+        self.nom = nom
+        self.description = description
 
         if isinstance(horodatage, int) and horodatage >= 0:
             self.horodatage = horodatage
-            logging.info(f"Tache '{self.Nom}' a été créé avec succès.")
+            logging.info(f"Tache '{self.nom}' a été créé avec succès.")
         else:
             logging.error("L'horodatage doit être un entier non négatif.")
             raise ValueError("L'horodatage doit être un entier non négatif.")
 
     def __str__(self):
         """Returns a string representation of the Tache object."""
-        return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, Nom={self.Nom}, Description={self.Description})"
+        return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, nom={self.nom}, description={self.description})"
 
 
 # Exemple d'utilisation

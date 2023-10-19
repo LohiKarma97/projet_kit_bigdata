@@ -8,8 +8,8 @@ class TestTache(unittest.TestCase):
 
     def test_init_valid(self):
         try:
-            t = Tache(TacheStatus.EN_COURS, "Projet A",
-                      1633897200, "Tâche 1", "Description 1")
+            t = Tache("Tâche 1", "Description 1", TacheStatus.EN_COURS, 
+                      "Projet A", 1633897200)
             self.assertEqual(t.status, TacheStatus.EN_COURS)
             self.assertEqual(t.projet, "Projet A")
             self.assertEqual(t.horodatage, 1633897200)
@@ -20,12 +20,12 @@ class TestTache(unittest.TestCase):
 
     def test_init_invalid_horodatage(self):
         with self.assertRaises(ValueError):
-            Tache(TacheStatus.A_FAIRE, "Projet B", -
-                  10, "Tâche 2", "Description 2")
+            Tache("Tâche 2", "Description 2", TacheStatus.A_FAIRE, 
+                  "Projet B", -10)
 
     def test_str_representation(self):
-        t = Tache(TacheStatus.EN_COURS, "Projet C",
-                  1633897300, "Tâche 3", "Description 3")
+        t = Tache("Tâche 3", "Description 3", TacheStatus.EN_COURS, 
+                  "Projet C", 1633897300)
         expected_str = "Tache(status=TacheStatus.EN_COURS, projet=Projet C, horodatage=1633897300, nom=Tâche 3, description=Description 3)"
         self.assertEqual(str(t), expected_str)
 

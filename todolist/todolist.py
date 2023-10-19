@@ -1,5 +1,5 @@
 import logging
-from todolist.Tache import Tache
+from todolist.Tache import Tache, TacheStatus
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
@@ -38,7 +38,7 @@ class ToDoList:
     def terminer(self, tache):
         """Complete a Tache."""
         try:
-            tache.status = Tache.Status.TERMINER
+            tache.status = TacheStatus.TERMINER
             logging.info(f"Tache completed: {tache}")
         except Exception as e:
             logging.error(f"Error completing Tache: {e}")

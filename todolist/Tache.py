@@ -1,6 +1,7 @@
 import logging
 from enum import Enum
 from typing import Union
+import time
 
 # Configure le logging
 logging.basicConfig(level=logging.INFO)
@@ -30,7 +31,7 @@ class Tache:
         description (str): The description of the Tache.
     """
 
-    def __init__(self, status: TacheStatus, projet: str, horodatage: Union[int, str], nom: str, description: str):
+    def __init__(self, nom: str, description: str, status: TacheStatus = TacheStatus.A_FAIRE, projet: str = "Default Project", horodatage: Union[int, str] = 1633897200):
         """Initializes a Tache object.
 
         Args:
@@ -48,12 +49,17 @@ class Tache:
         self.nom = nom
         self.description = description
 
-        if isinstance(horodatage, int) and horodatage >= 0:
-            self.horodatage = horodatage
-            logging.info(f"Tache '{self.nom}' a été créé avec succès.")
-        else:
-            logging.error("L'horodatage doit être un entier non négatif.")
-            raise ValueError("L'horodatage doit être un entier non négatif.")
+        if isinstance(horodatage, int):
+            if horodatage >= 0:
+                self.horodatage = horodatage
+                logging.info(f"Tache '{self.nom}' a été créé avec succès.")
+            else:
+                logging.error("L'horodatage doit être un entier non négatif.")
+                raise ValueError("L'horodatage doit être un entier non négatif.")
+        else :
+            self.horodatage = int(time.time())
+            logging.info(f"Tache '{self.nom}' a été créé avec succès - horodatage par défault.")
+
 
     def __str__(self):
         """Returns a string representation of the Tache object."""

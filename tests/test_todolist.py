@@ -1,7 +1,8 @@
 import unittest
 import logging
-from todolist.Tache import Tache
+from todolist.Tache import Tache, TacheStatus
 from todolist.todolist import ToDoList
+from unittest.mock import patch
 
 # Initialize logging for the test module
 logging.basicConfig(level=logging.INFO)
@@ -25,7 +26,7 @@ class TestToDoList(unittest.TestCase):
         tache = Tache(nom="Test Task", description="This is a test task.")
         self.todo_list.ajouter(tache)
         self.todo_list.terminer(tache)
-        self.assertEqual(tache.status, Tache.Status.TERMINER)
+        self.assertEqual(tache.status, TacheStatus.TERMINER)
         logging.info("Task marked as terminated successfully.")
 
     def test_supprimer(self) -> None:
@@ -39,10 +40,11 @@ class TestToDoList(unittest.TestCase):
     def test_afficher(self) -> None:
         """Test showing the ongoing task."""
         tache = Tache(nom="Test Task", description="This is a test task.")
-        self.todo_list.ajouter(tache)
-        with self.assertLogs() as cm:
+        
+        with patch("builtins.print") as mock_print:
             self.todo_list.afficher(tache)
-        self.assertIn('INFO:root:Tache added: Test Task', cm.output)
+            
+        mock_print.assert_called_once_with(tache)
         logging.info("Task displayed successfully.")
 
 

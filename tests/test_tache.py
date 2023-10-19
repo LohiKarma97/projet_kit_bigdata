@@ -13,8 +13,8 @@ class TestTache(unittest.TestCase):
             self.assertEqual(t.status, TacheStatus.EN_COURS)
             self.assertEqual(t.projet, "Projet A")
             self.assertEqual(t.horodatage, 1633897200)
-            self.assertEqual(t.Nom, "Tâche 1")
-            self.assertEqual(t.Description, "Description 1")
+            self.assertEqual(t.nom, "Tâche 1")
+            self.assertEqual(t.description, "Description 1")
         except Exception as e:
             self.fail(f"Initialization with valid arguments failed: {e}")
 

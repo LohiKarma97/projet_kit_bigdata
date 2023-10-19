@@ -26,8 +26,8 @@ class Tache:
         status (TacheStatus): The status of the Tache.
         projet (str): The project to which the Tache belongs.
         horodatage (Union[int, str]): The timestamp of the Tache.
-        Nom (str): The name of the Tache.
-        Description (str): The description of the Tache.
+        nom (str): The name of the Tache.
+        description (str): The description of the Tache.
     """
 
     def __init__(self, status: TacheStatus, projet: str, horodatage: Union[int, str], nom: str, description: str):
@@ -37,8 +37,8 @@ class Tache:
             status (TacheStatus): The status of the Tache.
             projet (str): The project to which the Tache belongs.
             horodatage (Union[int, str]): The timestamp of the Tache.
-            Nom (str): The name of the Tache.
-            Description (str): The description of the Tache.
+            nom (str): The name of the Tache.
+            description (str): The description of the Tache.
 
         Raises:
             ValueError: If the timestamp is negative.
@@ -50,7 +50,7 @@ class Tache:
 
         if isinstance(horodatage, int) and horodatage >= 0:
             self.horodatage = horodatage
-            logging.info(f"Tache '{self.Nom}' a été créé avec succès.")
+            logging.info(f"Tache '{self.nom}' a été créé avec succès.")
         else:
             logging.error("L'horodatage doit être un entier non négatif.")
             raise ValueError("L'horodatage doit être un entier non négatif.")

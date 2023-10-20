@@ -38,7 +38,7 @@ class ToDoList:
     def terminer(self, tache):
         """Complete a Tache."""
         try:
-            tache.status = Tache.Status.TERMINER
+            tache.status = TacheStatus.TERMINER
             logging.info(f"Tache completed: {tache}")
         except Exception as e:
             logging.error(f"Error completing Tache: {e}")

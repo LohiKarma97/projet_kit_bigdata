@@ -66,20 +66,3 @@ class Tache:
         """Returns a string representation of the Tache object."""
         return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, nom={self.nom}, description={self.description})"
 
-
-# Exemple d'utilisation
-try:
-    t1 = Tache(TacheStatus.EN_COURS, "Projet A", 1633897200,
-               "Tâche 1", "Cette tâche est la première du projet A.")
-    print(t1)
-
-    t2 = Tache(TacheStatus.A_FAIRE, "Projet B", 1633998200,
-               "Tâche 1", "Cette tâche est la première du projet B.")
-    print(t2)
-    
-    t3 = Tache(TacheStatus.A_FAIRE, "Projet B", 1633998200,
-               "Tâche 2", "Cette tâche est la deuxième du projet B.")
-    print(t3)
-       
-except ValueError as e:
-    logging.error(f"Une erreur s'est produite: {e}")

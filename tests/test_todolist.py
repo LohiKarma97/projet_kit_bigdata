@@ -39,8 +39,8 @@ class TestToDoList(unittest.TestCase):
         self.assertIn(tache, self.todo_list.liste_taches)
         logging.info("Task added successfully.")
 
-     #@print_test 
-     #def test_terminer(self) -> None:
+     # @print_test
+     # def test_terminer(self) -> None:
      #   """Test marking a task as terminated."""
      #   tache = Tache(nom="Test Task", description="This is a test task.")
      #   self.todo_list.ajouter(tache)

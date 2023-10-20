@@ -8,11 +8,11 @@ class TestTache(unittest.TestCase):
 
     def print_test(func):
         def wrapper(*args, **kwargs):
-            print('\nTACHE - Launching',func.__name__)
+            print('\nTACHE - Launching', func.__name__)
             return func(*args, **kwargs)
         return wrapper
-    
-    @print_test    
+
+    @print_test
     def test_init_valid(self):
         try:
             t = Tache("Tâche 1", "Description 1", TacheStatus.EN_COURS,
@@ -24,13 +24,13 @@ class TestTache(unittest.TestCase):
             self.assertEqual(t.description, "Description 1")
         except Exception as e:
             self.fail(f"Initialization with valid arguments failed: {e}")
-            
-    @print_test 
+
+    @print_test
     def test_init_invalid_horodatage(self):
         with self.assertRaises(ValueError):
             Tache(TacheStatus.A_FAIRE, "Projet B", -
                   10, "Tâche 2", "Description 2")
-  
+
     @print_test
     def test_str_representation(self):
         t = Tache("Tâche 3", "Description 3", TacheStatus.EN_COURS,

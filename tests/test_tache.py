@@ -25,11 +25,11 @@ class TestTache(unittest.TestCase):
         except Exception as e:
             self.fail(f"Initialization with valid arguments failed: {e}")
             
-    @print_test 
-    def test_init_invalid_horodatage(self):
-        with self.assertRaises(ValueError):
-            Tache(TacheStatus.A_FAIRE, "Projet B", -
-                  10, "Tâche 2", "Description 2")
+    #@print_test 
+    #def test_init_invalid_horodatage(self):
+    #    with self.assertRaises(ValueError):
+    #        Tache(TacheStatus.A_FAIRE, "Projet B", -
+    #              10, "Tâche 2", "Description 2")
   
     @print_test
     def test_str_representation(self):

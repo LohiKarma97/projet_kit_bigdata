@@ -8,7 +8,7 @@ class TestTache(unittest.TestCase):
 
     def print_test(func):
         def wrapper(*args, **kwargs):
-            print('\nLaunching',func.__name__)
+            print('\nTACHE - Launching',func.__name__)
             return func(*args, **kwargs)
         return wrapper
     

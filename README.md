@@ -15,12 +15,13 @@ GitHub Actions.
 - ```python3 -m unittest tests/test_todolist.py```
 
 # Poetry
-- install poetry module (linux command -slide 18)
+- pip install poetry (linux command -slide 18)
 - poetry install (dl l'environement)
 - poetry env info (vérifier la config, notamment path)
 - projet shell (let's begin !)
 - poetry show (statut des dépendances)
 - poetry export -f requirements.txt > requirements.txt
+
 
 NB :
 .venv dans le repo avec 'poetry config virtualenvs.in-project true'

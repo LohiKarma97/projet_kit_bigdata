@@ -2,7 +2,7 @@ import unittest
 import logging
 # Remplacez 'your_module' par le nom du module où se trouve votre classe Tache
 from todolist.todolist import ToDoList
-from todolist.tache import Tache, TacheStatus
+from todolist.Tache import Tache, TacheStatus
 from unittest.mock import patch
 
 # Initialize logging for the test module

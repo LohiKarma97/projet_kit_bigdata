@@ -5,12 +5,19 @@
 
 Welcome to TodoList's documentation!
 ====================================
+.. include:: ../README.rst
 
+Contents
+========
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   
+   todolist
 
-
+Additional Resources
+--------------------
+- GitHub Repository: [https://github.com/LohiKarma97/projet_kit_bigdata]
 
 Indices and tables
 ==================

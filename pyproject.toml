@@ -6,7 +6,7 @@ authors = ["Leo Barberis <leo.barberis@telecom-paris.fr>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.10.12"
 
 
 [tool.poetry.group.dev.dependencies]

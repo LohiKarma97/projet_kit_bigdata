@@ -2,4 +2,7 @@
 .venv/*
 
 # Ignore Python cache files
-__pycache__/
+*/__pycache__/
+
+# Sphinx documentation build output
+docs/_build/

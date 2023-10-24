@@ -1,5 +1,5 @@
 import logging
-from todolist.Tache import Tache
+from todolist.Tache import Tache, TacheStatus
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
@@ -29,6 +29,10 @@ class ToDoList:
 
     def supprimer(self, tache):
         """Remove a Tache from the list."""
+        if not isinstance(tache, Tache):
+            logging.error("Error removing Tache: Provided object is not a Tache instance.")
+            raise ValueError("Provided object is not a Tache instance.")
+        
         try:
             self.liste_taches.remove(tache)
             logging.info(f"Tache removed: {tache}")
@@ -38,6 +42,8 @@ class ToDoList:
     def terminer(self, tache):
         """Complete a Tache."""
         try:
+            if not isinstance(tache, Tache):
+                raise ValueError("Provided object is not a Tache instance.")
             tache.status = TacheStatus.TERMINER
             logging.info(f"Tache completed: {tache}")
         except Exception as e:

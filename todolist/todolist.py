@@ -30,9 +30,10 @@ class ToDoList:
     def supprimer(self, tache):
         """Remove a Tache from the list."""
         if not isinstance(tache, Tache):
-            logging.error("Error removing Tache: Provided object is not a Tache instance.")
+            logging.error(
+                "Error removing Tache: Provided object is not a Tache instance.")
             raise ValueError("Provided object is not a Tache instance.")
-        
+
         try:
             self.liste_taches.remove(tache)
             logging.info(f"Tache removed: {tache}")

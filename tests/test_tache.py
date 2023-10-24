@@ -28,7 +28,8 @@ class TestTache(unittest.TestCase):
     @print_test
     def test_init_invalid_horodatage(self):
         with self.assertRaises(ValueError):
-            Tache("Tâche 2", "Description 2", TacheStatus.A_FAIRE, "Projet B", -10)
+            Tache("Tâche 2", "Description 2",
+                  TacheStatus.A_FAIRE, "Projet B", -10)
 
     @print_test
     def test_str_representation(self):

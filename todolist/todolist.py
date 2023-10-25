@@ -2,7 +2,7 @@ import logging
 from todolist.Tache import Tache, TacheStatus
 
 # Initialize logging
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 
 class ToDoList:
@@ -23,7 +23,7 @@ class ToDoList:
         """Add a Tache to the list."""
         try:
             self.liste_taches.append(tache)
-            logging.info(f"Tache added: {tache}")
+            logging.debug(f"Tache added: {tache}")
         except Exception as e:
             logging.error(f"Error adding Tache: {e}")
 
@@ -36,7 +36,7 @@ class ToDoList:
 
         try:
             self.liste_taches.remove(tache)
-            logging.info(f"Tache removed: {tache}")
+            logging.debug(f"Tache removed: {tache}")
         except Exception as e:
             logging.error(f"Error removing Tache: {e}")
 
@@ -46,7 +46,7 @@ class ToDoList:
             if not isinstance(tache, Tache):
                 raise ValueError("Provided object is not a Tache instance.")
             tache.status = TacheStatus.TERMINER
-            logging.info(f"Tache completed: {tache}")
+            logging.debug(f"Tache completed: {tache}")
         except Exception as e:
             logging.error(f"Error completing Tache: {e}")
 
@@ -61,6 +61,6 @@ class ToDoList:
                 tache.nom = nom
             if description:
                 tache.description = description
-            logging.info(f"Tache modified: {tache}")
+            logging.debug(f"Tache modified: {tache}")
         except Exception as e:
             logging.error(f"Error modifying Tache: {e}")

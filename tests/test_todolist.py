@@ -5,7 +5,7 @@ from todolist.Tache import Tache, TacheStatus
 from unittest.mock import patch, MagicMock
 
 # Initialize logging for the test module
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 
 class TestToDoList(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestToDoList(unittest.TestCase):
         tache = Tache(nom="Test Task", description="This is a test task.")
         self.todo_list.ajouter(tache)
         self.assertIn(tache, self.todo_list.liste_taches)
-        logging.info("Task added successfully.")
+        logging.debug("Task added successfully.")
 
     @print_test
     def test_ajouter_exception(self):
@@ -78,7 +78,7 @@ class TestToDoList(unittest.TestCase):
         self.todo_list.ajouter(tache)
         self.todo_list.terminer(tache)
         self.assertEqual(tache.status, TacheStatus.TERMINER)
-        logging.info("Task marked as terminated successfully.")
+        logging.debug("Task marked as terminated successfully.")
 
     @print_test
     def test_terminer_exception(self):
@@ -101,7 +101,7 @@ class TestToDoList(unittest.TestCase):
         self.todo_list.ajouter(tache)
         self.todo_list.supprimer(tache)
         self.assertNotIn(tache, self.todo_list.liste_taches)
-        logging.info("Task deleted successfully.")
+        logging.debug("Task deleted successfully.")
 
     @print_test
     def test_supprimer_exception(self):
@@ -127,7 +127,7 @@ class TestToDoList(unittest.TestCase):
             self.todo_list.afficher(tache)
 
         mock_print.assert_called_once_with(tache)
-        logging.info("Task displayed successfully.")
+        logging.debug("Task displayed successfully.")
 
 
 if __name__ == '__main__':

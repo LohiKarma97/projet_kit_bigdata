@@ -40,6 +40,4 @@ class TestTache(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    # Désactiver les logs pendant les tests
-    logging.basicConfig(level=logging.DEBUG)
     unittest.main()

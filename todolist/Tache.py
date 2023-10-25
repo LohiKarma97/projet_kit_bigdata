@@ -4,7 +4,7 @@ from typing import Union
 import time
 
 # Configure le logging
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 
 class TacheStatus(Enum):
@@ -52,14 +52,14 @@ class Tache:
         if isinstance(horodatage, int):
             if horodatage >= 0:
                 self.horodatage = horodatage
-                logging.info(f"Tache '{self.nom}' a été créé avec succès.")
+                logging.debug(f"Tache '{self.nom}' a été créé avec succès.")
             else:
                 logging.error("L'horodatage doit être un entier non négatif.")
                 raise ValueError(
                     "L'horodatage doit être un entier non négatif.")
         else:
             self.horodatage = int(time.time())
-            logging.info(
+            logging.debug(
                 f"Tache '{self.nom}' a été créé avec succès - horodatage par défault.")
 
     def __str__(self):

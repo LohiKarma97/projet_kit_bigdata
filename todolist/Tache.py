@@ -35,6 +35,7 @@ class Tache:
         """Initializes a Tache object.
 
         Args:
+            id:The 
             status (TacheStatus): The status of the Tache.
             projet (str): The project to which the Tache belongs.
             horodatage (Union[int, str]): The timestamp of the Tache.
@@ -62,6 +63,13 @@ class Tache:
             logging.debug(
                 f"Tache '{self.nom}' a été créé avec succès - horodatage par défault.")
 
+    def afficher(self):
+        """Display a Tache."""
+        try:
+            print(self)
+        except Exception as e:
+            logging.error(f"Error displaying Tache: {e}")
+            
     def __str__(self):
         """Returns a string representation of the Tache object."""
         return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, nom={self.nom}, description={self.description})"

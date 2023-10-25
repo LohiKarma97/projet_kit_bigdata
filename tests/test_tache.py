@@ -2,7 +2,7 @@ import unittest
 import logging
 # Remplacez 'your_module' par le nom du module où se trouve votre classe Tache
 from todolist.Tache import Tache, TacheStatus
-
+from unittest.mock import patch, MagicMock
 
 class TestTache(unittest.TestCase):
 
@@ -31,6 +31,17 @@ class TestTache(unittest.TestCase):
             Tache("Tâche 2", "Description 2",
                   TacheStatus.A_FAIRE, "Projet B", -10)
 
+    @print_test
+    def test_afficher(self) -> None:
+        """Test showing a task."""
+        tache = Tache(nom="Test Task", description="This is a test task.")
+
+        with patch("builtins.print") as mock_print:
+            tache.afficher()
+
+        mock_print.assert_called_once_with(tache)
+        logging.debug("Task displayed successfully.")
+        
     @print_test
     def test_str_representation(self):
         t = Tache("Tâche 3", "Description 3", TacheStatus.EN_COURS,

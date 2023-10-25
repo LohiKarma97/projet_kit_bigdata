@@ -97,7 +97,7 @@ class TestTache(unittest.TestCase):
     def test_str_representation(self):
         t = Tache("Tâche 3", "Description 3", TacheStatus.EN_COURS,
                   "Projet C", 1633897300)
-        expected_str = "Tache(status=TacheStatus.EN_COURS, projet=Projet C, horodatage=1633897300, nom=Tâche 3, description=Description 3)"
+        expected_str = "Tache(status='en cours', projet=Projet C, horodatage=1633897300, nom=Tâche 3, description=Description 3)"
         self.assertEqual(str(t), expected_str)
 
 

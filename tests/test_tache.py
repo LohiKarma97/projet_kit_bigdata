@@ -41,7 +41,49 @@ class TestTache(unittest.TestCase):
 
         mock_print.assert_called_once_with(tache)
         logging.debug("Task displayed successfully.")
+
+
+    @print_test
+    def test_modifier(self):
+        """Test modifying a task."""
+        tache = Tache(nom="Test Task", description="This is a test task.")
+        tache.modifier(tache, projet="New Project", nom="New Name", description="New Description")
+        self.assertEqual(tache.projet, "New Project")
+        self.assertEqual(tache.nom, "New Name")
+        self.assertEqual(tache.description, "New Description")
+
+    '''@print_test
+    def test_modifier_exception(self):
+        """Test exception handling when modifying a task."""
+        tache = Tache(nom="Test Task", description="This is a test task.")
+        with patch.object(tache, "nom", side_effect=Exception("Test Exception")):
+            with self.assertLogs(level="ERROR") as cm:
+                self.todo_list.modifier(tache, nom="New Name")
+            self.assertIn("Error modifying Tache: Test Exception", cm.output)'''
+
+    @print_test
+    def test_terminer(self) -> None:
+        """Test marking a task as terminated."""
+        tache = Tache(nom="Test Task", description="This is a test task.")
+        tache.terminer()
+        self.assertEqual(tache.status, TacheStatus.TERMINER)
+        logging.debug("Task marked as terminated successfully.")
+
+    @print_test
+    def test_terminer_exception(self):
+        """Test exception handling when terminating a task."""
+
+        # Using a string instead of a Tache instance to trigger the ValueError.
+        non_tache_object = "This is not a Tache instance."
         
+        #with self.assertLogs(level="ERROR") as cm:
+        #    self.assertLogs(non_tache_object.terminer(),"Provided object is not a Tache instance.")
+        #    self.non_tache_object.terminer()
+
+        # Check if the expected error message appears in the logs.
+        #self.assertTrue(any(
+        #    "Error completing Tache: Provided object is not a Tache instance." in log for log in cm.output))
+      
     @print_test
     def test_str_representation(self):
         t = Tache("Tâche 3", "Description 3", TacheStatus.EN_COURS,

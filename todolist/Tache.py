@@ -12,11 +12,11 @@ class TacheStatus(Enum):
 
     Attributes:
         EN_COURS: Tache is ongoing.
-        TERMINER: Tache is completed.
+        TERMINEE: Tache is completed.
         A_FAIRE: Tache is yet to be started.
     """
     EN_COURS = "en cours"
-    TERMINER = "terminer"
+    TERMINEE = "terminée"
     A_FAIRE = "à faire"
 
 
@@ -72,7 +72,7 @@ class Tache:
         try:
             if not isinstance(self, Tache):
                 raise ValueError("Provided object is not a Tache instance.")
-            self.status = TacheStatus.TERMINER
+            self.status = TacheStatus.TERMINEE
             logging.debug(f"Tache completed: {self}")
         except Exception as e:
             logging.error(f"Error completing Tache: {e}")

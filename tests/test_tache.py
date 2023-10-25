@@ -66,7 +66,7 @@ class TestTache(unittest.TestCase):
         """Test marking a task as terminated."""
         tache = Tache(nom="Test Task", description="This is a test task.")
         tache.terminer()
-        self.assertEqual(tache.status, TacheStatus.TERMINER)
+        self.assertEqual(tache.status, TacheStatus.TERMINEE)
         logging.debug("Task marked as terminated successfully.")
 
     @print_test
@@ -88,7 +88,7 @@ class TestTache(unittest.TestCase):
     def test_to_dict(self):
         tache = Tache(nom="T2", description="Description 2", status=TacheStatus.EN_COURS, projet="Projet B", horodatage=1698269689)
         self.assertEqual(tache.to_dict(), {'status': 'en cours',
-                'project': 'Projet B',
+                'projet': 'Projet B',
                 'nom': 'T2',
                 'description': 'Description 2',
                 'horodatage': 1698269689})

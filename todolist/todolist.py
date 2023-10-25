@@ -12,12 +12,14 @@ class ToDoList:
         """Initialize a new ToDoList object."""
         self.liste_taches = []
 
-    def afficher(self, tache):
-        """Display a Tache."""
+    def afficher_taches_en_cours(self):
+        """Display Tache in ToDoList which status is "en cours" ."""
         try:
-            print(tache)
+            for t in self.liste_taches:
+                print(t.__str__())
+                #if t.status==TacheStatus.EN_COURS : print(t.afficher()) #A filtrer pour avoir uniquepment taches actives
         except Exception as e:
-            logging.error(f"Error displaying Tache: {e}")
+            logging.error(f"Error displaying Tache en cours: {e}")
 
     def ajouter(self, tache):
         """Add a Tache to the list."""
@@ -40,27 +42,4 @@ class ToDoList:
         except Exception as e:
             logging.error(f"Error removing Tache: {e}")
 
-    def terminer(self, tache):
-        """Complete a Tache."""
-        try:
-            if not isinstance(tache, Tache):
-                raise ValueError("Provided object is not a Tache instance.")
-            tache.status = TacheStatus.TERMINER
-            logging.debug(f"Tache completed: {tache}")
-        except Exception as e:
-            logging.error(f"Error completing Tache: {e}")
 
-    def modifier(self, tache, projet=None, horodatage=None, nom=None, description=None):
-        """Modify a Tache."""
-        try:
-            if projet:
-                tache.projet = projet
-            if horodatage:
-                tache.horodatage = horodatage
-            if nom:
-                tache.nom = nom
-            if description:
-                tache.description = description
-            logging.debug(f"Tache modified: {tache}")
-        except Exception as e:
-            logging.error(f"Error modifying Tache: {e}")

@@ -2,7 +2,7 @@ import unittest
 import logging
 from todolist.todolist import ToDoList
 from todolist.Tache import Tache, TacheStatus
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 
 # Initialize logging for the test module
 # logging.basicConfig(level=logging.INFO)
@@ -51,50 +51,6 @@ class TestToDoList(unittest.TestCase):
             "ERROR:root:Error adding Tache: Test Exception", cm.output)
 
     @print_test
-    def test_modifier(self):
-        """Test modifying a task."""
-        tache = Tache(nom="Test Task", description="This is a test task.")
-        self.todo_list.ajouter(tache)
-
-        self.todo_list.modifier(
-            tache, projet="New Project", nom="New Name", description="New Description")
-        self.assertEqual(tache.projet, "New Project")
-        self.assertEqual(tache.nom, "New Name")
-        self.assertEqual(tache.description, "New Description")
-
-    '''@print_test
-    def test_modifier_exception(self):
-        """Test exception handling when modifying a task."""
-        tache = Tache(nom="Test Task", description="This is a test task.")
-        with patch.object(tache, "nom", side_effect=Exception("Test Exception")):
-            with self.assertLogs(level="ERROR") as cm:
-                self.todo_list.modifier(tache, nom="New Name")
-            self.assertIn("Error modifying Tache: Test Exception", cm.output)'''
-
-    @print_test
-    def test_terminer(self) -> None:
-        """Test marking a task as terminated."""
-        tache = Tache(nom="Test Task", description="This is a test task.")
-        self.todo_list.ajouter(tache)
-        self.todo_list.terminer(tache)
-        self.assertEqual(tache.status, TacheStatus.TERMINER)
-        logging.debug("Task marked as terminated successfully.")
-
-    @print_test
-    def test_terminer_exception(self):
-        """Test exception handling when terminating a task."""
-
-        # Using a string instead of a Tache instance to trigger the ValueError.
-        non_tache_object = "This is not a Tache instance."
-
-        with self.assertLogs(level="ERROR") as cm:
-            self.todo_list.terminer(non_tache_object)
-
-        # Check if the expected error message appears in the logs.
-        self.assertTrue(any(
-            "Error completing Tache: Provided object is not a Tache instance." in log for log in cm.output))
-
-    @print_test
     def test_supprimer(self) -> None:
         """Test deleting a task."""
         tache = Tache(nom="Test Task", description="This is a test task.")
@@ -119,14 +75,19 @@ class TestToDoList(unittest.TestCase):
             "Error removing Tache: Provided object is not a Tache instance." in log for log in cm.output))
 
     @print_test
-    def test_afficher(self) -> None:
+    def test_afficher_taches_en_cours(self) -> None:
         """Test showing the ongoing task."""
-        tache = Tache(nom="Test Task", description="This is a test task.")
-
+        tache1 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.EN_COURS)
+        tache2 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.A_FAIRE)
+        self.todo_list = ToDoList()
+        self.todo_list.ajouter(tache1)
+        self.todo_list.ajouter(tache2)
+        self.todo_list.afficher_taches_en_cours()
+        
         with patch("builtins.print") as mock_print:
-            self.todo_list.afficher(tache)
-
-        mock_print.assert_called_once_with(tache)
+            self.todo_list.afficher_taches_en_cours()
+        
+        assert mock_print.call_args_list[0] == call(str(tache1))
         logging.debug("Task displayed successfully.")
 
 

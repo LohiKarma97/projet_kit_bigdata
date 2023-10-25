@@ -96,7 +96,7 @@ class Tache:
         return {        
             #'id'=self.id # id a créer dans tache
             'status':self.status.value,
-            'project':self.projet,
+            'projet':self.projet,
             'nom':self.nom,
             'description':self.description,
             'horodatage':self.horodatage

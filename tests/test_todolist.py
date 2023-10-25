@@ -89,6 +89,32 @@ class TestToDoList(unittest.TestCase):
         assert mock_print.call_args_list[0] == call(str(tache1))
         logging.debug("Task displayed successfully.")
 
+    @print_test
+    def test_save_ToDoList(self):
+        tache1 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.EN_COURS)
+        tache2 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.A_FAIRE)
+        self.todo_list = ToDoList()
+        self.todo_list.ajouter(tache1)
+        self.todo_list.ajouter(tache2)
+        self.todo_list.save_ToDoList()
+    
+    @print_test
+    def test_open_ToDoList(self):
+        tache1 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.EN_COURS)
+        tache2 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.A_FAIRE)
+        self.todo_list = ToDoList()
+        self.todo_list.ajouter(tache1)
+        self.todo_list.ajouter(tache2)
+        self.todo_list.save_ToDoList(file='test.json')
+        with patch("builtins.print") as mock_print:
+            self.todo_list.afficher_taches_en_cours()
+                    
+        self.todo_list_recup= ToDoList()
+        self.todo_list_recup.open_ToDoList(file='test.json')
+        with patch("builtins.print") as mock_print_recup:
+            self.todo_list.afficher_taches_en_cours()
+        
+        self.assertEqual(mock_print.call_args_list[0],mock_print_recup.call_args_list[0])
 
 if __name__ == '__main__':
     unittest.main()

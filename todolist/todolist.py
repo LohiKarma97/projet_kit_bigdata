@@ -1,5 +1,6 @@
 import logging
 from todolist.Tache import Tache, TacheStatus
+import json
 
 # Initialize logging
 # logging.basicConfig(level=logging.INFO)
@@ -42,4 +43,21 @@ class ToDoList:
         except Exception as e:
             logging.error(f"Error removing Tache: {e}")
 
+    def save_ToDoList(self,file:str='data.json'): #quel est l'output type ?
+        data=[]
+        for t in self.liste_taches: data.append(t.to_dict())
+        with open(file, 'w') as f:
+            json.dump(data, f)
 
+    def open_ToDoList(self,file:str='data.json'):# l'output = list ?
+        with open(file, 'r') as f:
+            data = json.load(f)
+        temp=ToDoList()
+        for t in data:
+            t_recup=Tache(nom=t['nom'], 
+                      description=t['description'], 
+                      status=t['status'], 
+                      projet=t['projet'], 
+                      horodatage=t['horodatage'])
+            temp.ajouter(t_recup)
+        return temp

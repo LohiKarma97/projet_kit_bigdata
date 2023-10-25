@@ -2,7 +2,7 @@ import logging
 from todolist.Tache import Tache, TacheStatus
 
 # Initialize logging
-#logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
 
 
 class ToDoList:

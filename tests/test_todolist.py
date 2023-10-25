@@ -5,7 +5,7 @@ from todolist.Tache import Tache, TacheStatus
 from unittest.mock import patch, MagicMock
 
 # Initialize logging for the test module
-#logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
 
 
 class TestToDoList(unittest.TestCase):

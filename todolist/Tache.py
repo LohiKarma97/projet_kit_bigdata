@@ -4,7 +4,7 @@ from typing import Union
 import time
 
 # Configure le logging
-#logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
 
 
 class TacheStatus(Enum):

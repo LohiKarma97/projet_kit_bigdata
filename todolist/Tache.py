@@ -31,7 +31,7 @@ class Tache:
         description (str): The description of the Tache.
     """
 
-    def __init__(self, nom: str, description: str, status: TacheStatus = TacheStatus.A_FAIRE, projet: str = "Default Project", horodatage: Union[int, str] = 1633897200):
+    def __init__(self, nom: str, description: str, status: TacheStatus = TacheStatus.A_FAIRE, projet: str = "Default Project", horodatage: Union[int, str, float] = time.time()):
         """Initializes a Tache object.
 
         Args:
@@ -65,3 +65,4 @@ class Tache:
     def __str__(self):
         """Returns a string representation of the Tache object."""
         return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, nom={self.nom}, description={self.description})"
+

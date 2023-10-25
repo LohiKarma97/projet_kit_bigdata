@@ -10,6 +10,10 @@ from unittest.mock import patch, MagicMock, call
 
 class TestToDoList(unittest.TestCase):
 
+    def setUp(self) -> None:
+        """Setup a new ToDoList for each test."""
+        self.todo_list = ToDoList()
+        
     def print_test(func):
         def wrapper(*args, **kwargs):
             print('\nTODOLIST - Launching :', func.__name__)
@@ -24,11 +28,6 @@ class TestToDoList(unittest.TestCase):
         except Exception as e:
             self.fail(
                 f"Initialization ToDoList with valid arguments failed: {e}")
-
-    @print_test
-    def setUp(self) -> None:
-        """Setup a new ToDoList for each test."""
-        self.todo_list = ToDoList()
 
     @print_test
     def test_ajouter(self) -> None:

@@ -92,6 +92,16 @@ class Tache:
         except Exception as e:
             logging.error(f"Error modifying Tache: {e}")
                       
+    def to_dict(self):
+        return {        
+            #'id'=self.id # id a créer dans tache
+            'status':self.status.value,
+            'project':self.projet,
+            'nom':self.nom,
+            'description':self.description,
+            'horodatage':self.horodatage
+        }
+        
     def __str__(self):
         """Returns a string representation of the Tache object."""
         return f"Tache(status={self.status}, projet={self.projet}, horodatage={self.horodatage}, nom={self.nom}, description={self.description})"

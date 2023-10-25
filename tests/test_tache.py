@@ -83,7 +83,16 @@ class TestTache(unittest.TestCase):
         # Check if the expected error message appears in the logs.
         #self.assertTrue(any(
         #    "Error completing Tache: Provided object is not a Tache instance." in log for log in cm.output))
-      
+
+    @print_test
+    def test_to_dict(self):
+        tache = Tache(nom="T2", description="Description 2", status=TacheStatus.EN_COURS, projet="Projet B", horodatage=1698269689)
+        self.assertEqual(tache.to_dict(), {'status': 'en cours',
+                'project': 'Projet B',
+                'nom': 'T2',
+                'description': 'Description 2',
+                'horodatage': 1698269689})
+
     @print_test
     def test_str_representation(self):
         t = Tache("Tâche 3", "Description 3", TacheStatus.EN_COURS,

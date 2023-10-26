@@ -15,12 +15,16 @@ Le but étant de couvrir un certain nombre d'étapes clef, notamment: la structu
 - poetry export -f requirements.txt > requirements.txt
 
 # User manual
+- View an example of a ToDoList : 
+      TODO=ToDoList()
+      TODO.open_ToDoList('data.json')
 - Initialize a new todolist : XXXXXXXXXXXXXX
 - Add a new task to the list : XXXXXXXXXXXXXX
 - Modify an existing task : XXXXXXXXXXXXXX
 - Delete an existing task : XXXXXXXXXXXXXX
+- Show current tasks : 
 - Terminate an existing task: XXXXXXXXXXXXXX
-- Show current status of the todolist : XXXXXXXXXXXXXX
+- Show current status of the todolist : XXXXXXXXXXXXXX #A quoi cela corespond-il ?
 
 # Developper manual
 ## Testing

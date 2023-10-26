@@ -55,12 +55,14 @@ class ToDoList:
     def open_ToDoList(self, file: str = 'data.json'):  # l'output = list ?
         with open(file, 'r') as f:
             data = json.load(f)
-        temp = ToDoList()
+        status_method={'en cours':TacheStatus.EN_COURS,
+                       'terminée':TacheStatus.TERMINEE,
+                       'à faire':TacheStatus.A_FAIRE}
         for t in data:
             t_recup = Tache(nom=t['nom'],
                             description=t['description'],
-                            status=t['status'],
+                            status=status_method[t['status']],
                             projet=t['projet'],
                             horodatage=t['horodatage'])
-            temp.ajouter(t_recup)
-        return temp
+            self.ajouter(t_recup)
+        return self

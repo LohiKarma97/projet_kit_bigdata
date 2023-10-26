@@ -16,12 +16,15 @@ Le but étant de couvrir un certain nombre d'étapes clef, notamment: la structu
 
 # User manual
 - The TODOLIST consist of a class where the interface is callbable over the api todolist.
-- Add a new task to the list : todolist -a 
-- Modify an existing task : todolist -m 
-- Delete an existing task : todolist -d id
-- Get the list of tasks : todolist -l
-- Terminate an existing task: todolist -t id
-- Show current status of the todolist : todolist -s id
+- There are 5 methods to manipulate a todolist
+- Each task has several attributes : --nom, --description, --status, --projet, --horodatage
+
+## Usage example : (from todolist directory)
+- Add a new task to the list : ```todolist -a --nom "<nom>" --description "<description>"```
+- Modify an existing task : ```todolist -m --nom "<nom>" --<attribute to change> ...```
+- Delete an existing task : ```todolist -d --nom "<nom>"```
+- Get the list of tasks : ```todolist -l```
+- Terminate an existing task: ```todolist -t --nom "<nom>"```
 
 # Developper manual
 ## Testing
@@ -30,7 +33,7 @@ Le but étant de couvrir un certain nombre d'étapes clef, notamment: la structu
 ## Coverage
 - ```poetry run python -m coverage run -m unittest tests/test_tache.py```
 - ```poetry run python -m coverage run -a -m unittest tests/test_todolist.py```
-- '''poetry run python -m coverage report'''
+- ```poetry run python -m coverage report```
 
 ## Documentation Sphinx
 - Generate the doc (all .rst are update automaticaly through 'conf.py')

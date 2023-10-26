@@ -2,7 +2,8 @@ import unittest
 import os
 from todolist.todolist import ToDoList
 from todolist.Tache import Tache, TacheStatus
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock, Mock, ANY
+from todolist.todolist import main
 
 # Initialize logging for the test module
 # logging.basicConfig(level=logging.INFO)
@@ -190,11 +191,14 @@ class TestToDoList(unittest.TestCase):
 
     @patch('builtins.print')
     def test_display_success(self, mock_print):
-        # Assuming _task_list is public or use a method to add
+        # Add a task to the list
         self.todo_list._task_list.append(self.tache1)
-
-        self.todo_list.display(self.tache1.nom)
-        mock_print.assert_called_with(self.tache1)
+        
+        # Call the display_list method
+        tasks = self.todo_list.display_list()
+        
+        # Verify that the returned list contains the added task's string representation
+        self.assertIn(str(self.tache1), tasks)
 
     @patch('logging.debug')
     def test_display_list_empty(self, mock_debug):
@@ -206,24 +210,23 @@ class TestToDoList(unittest.TestCase):
 
     @patch('logging.error')
     @patch('logging.debug')
-    @patch('builtins.print')
-    def test_display_list_success(self, mock_print, mock_debug, mock_error):
+    def test_display_list_success(self, mock_debug, mock_error):
 
+        # Add two tasks to the list
         self.todo_list._task_list.append(self.tache1)
         self.todo_list._task_list.append(self.tache2)
 
-        self.todo_list.display_list()
+        # Call the display_list method
+        tasks = self.todo_list.display_list()
 
-        # Verify that 'print' is called twice: once for each task
-        self.assertEqual(mock_print.call_count, 2)
-
-        # Verify the calls contain the correct tache objects
-        mock_print.assert_any_call(self.tache1)
-        mock_print.assert_any_call(self.tache2)
+        # Verify that the returned list contains the added tasks' string representations
+        self.assertIn(str(self.tache1), tasks)
+        self.assertIn(str(self.tache2), tasks)
 
         # Verify that debug and error logging are not called
         mock_debug.assert_not_called()
         mock_error.assert_not_called()
+
 
     def test_save_ToDoList(self):
         self.todo_list.add(self.tache1)
@@ -273,6 +276,169 @@ class TestToDoList(unittest.TestCase):
 
         # remove json file
         os.remove('test.json')
+
+    @patch('logging.debug')
+    def test_open_ToDoList_non_existent_file(self, mock_debug):
+        """Test opening a non-existent file."""
+        if os.path.exists('nonexistent.json'):
+            os.remove('nonexistent.json')
+        self.todo_list.open_ToDoList(file='nonexistent.json')
+        
+        # Check if logging.debug was called with the expected message
+        mock_debug.assert_called_with("'nonexistent.json' does not exist. A new file will be created upon saving.")
+
+
+    @patch('logging.error')
+    def test_open_ToDoList_empty_file(self, mock_error):
+        """Test opening an empty file."""
+        with open('empty.json', 'w') as f:
+            f.write('')
+        self.todo_list.open_ToDoList(file='empty.json')
+        mock_error.assert_called_with("Error opening file: Expecting value: line 1 column 1 (char 0)")
+        os.remove('empty.json')
+
+    @patch('logging.error')
+    def test_open_ToDoList_invalid_data(self, mock_error):
+        """Test opening a file with invalid JSON data."""
+        with open('invalid.json', 'w') as f:
+            f.write("{invalid_json")
+        self.todo_list.open_ToDoList(file='invalid.json')
+        mock_error.assert_called_with("Error opening file: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)")
+        os.remove('invalid.json')
+
+class TestCLI(unittest.TestCase):
+
+    def setUp(self):
+        """Setup for each test."""
+        # If there's any shared setup, put it here.
+        pass
+
+
+    @patch('todolist.todolist.ToDoList.add')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_add_task_with_status(self, mock_args, mock_add):
+        """Test the CLI add task with name and status."""
+        
+        mock_args.return_value = MagicMock(nom="Test Task", description=None, status="en cours", add=True, projet=None, modify=False, delete=False, list=False, terminate=False)
+
+        main()
+
+        # Get the Tache instance from the mock_add call arguments
+        tache_instance = mock_add.call_args[0][0]  # This fetches the first positional argument passed to mock_add
+
+        # Now, assert against the attributes of the Tache instance
+        self.assertEqual(tache_instance.nom, "Test Task")
+        self.assertEqual(tache_instance.status, TacheStatus.EN_COURS)
+
+
+    @patch('todolist.todolist.ToDoList.add')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_add_task_with_description(self, mock_args, mock_add):
+        """Test the CLI add task with name and description."""
+        
+        mock_args.return_value = MagicMock(nom="Test Task", description="Test Description", status="en cours", add=True, projet=None, modify=False, delete=False, list=False, terminate=False)
+
+        main()
+
+        # Get the Tache instance from the mock_add call arguments
+        tache_instance = mock_add.call_args[0][0]
+
+        # Now, assert against the attributes of the Tache instance
+        self.assertEqual(tache_instance.nom, "Test Task")
+        self.assertEqual(tache_instance.description, "Test Description")
+
+
+    @patch('todolist.todolist.ToDoList.add')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_add_task_with_status(self, mock_args, mock_add):
+        """Test the CLI add task with name and status."""
+        
+        mock_args.return_value = MagicMock(nom="Test Task", description=None, status="en cours", add=True, projet=None, modify=False, delete=False, list=False, terminate=False)
+
+        main()
+
+        # Get the Tache instance from the mock_add call arguments
+        tache_instance = mock_add.call_args[0][0]
+
+        # Now, assert against the attributes of the Tache instance
+        self.assertEqual(tache_instance.nom, "Test Task")
+        self.assertEqual(tache_instance.status, TacheStatus.EN_COURS)
+
+
+
+    @patch('todolist.todolist.ToDoList.add')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_add_task_all_args(self, mock_args, mock_add):
+        """Test the CLI add task with all arguments."""
+        
+        mock_args.return_value = MagicMock(nom="Test Task", description="Test Description", status="en cours", add=True, projet="Work Project", modify=False, delete=False, list=False, terminate=False)
+
+        main()
+
+        # Get the Tache instance from the mock_add call arguments
+        tache_instance = mock_add.call_args[0][0]  # This fetches the first positional argument passed to mock_add
+
+        # Now, assert against the attributes of the Tache instance
+        self.assertEqual(tache_instance.nom, "Test Task")
+        self.assertEqual(tache_instance.description, "Test Description")
+        self.assertEqual(tache_instance.status, TacheStatus.EN_COURS)
+        self.assertEqual(tache_instance.projet, "Work Project")
+
+    @patch('todolist.todolist.ToDoList.modified')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_modify_task_name(self, mock_args, mock_modify):
+        """Test the CLI modify task name."""
+        mock_args.return_value = MagicMock(nom="Original Task", new_nom="Modified Task", description=None, status=None, add=False, modified=True, delete=False, list=False, completed=False)
+        
+        main()
+
+        mock_modify.assert_called_with("Original Task", description=None, status=None, projet=ANY)
+
+
+    @patch('todolist.todolist.ToDoList.modified')
+    @patch('todolist.todolist.ToDoList.save_ToDoList')
+    @patch('todolist.todolist.logging.error')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_modify_task_description(self, mock_args, mock_error, mock_save, mock_modified):
+        """Test the CLI modify task description."""
+        
+        mock_args.return_value = MagicMock(nom="Test Task", modify=True, description="Updated Description", status=None, add=False, delete=False, list=False, completed=False)
+        
+        main()
+
+        mock_modified.assert_called_with('Test Task', description='Updated Description', status=None, projet=ANY)
+
+
+    @patch('todolist.todolist.ToDoList.modified')
+    @patch('todolist.todolist.ToDoList.save_ToDoList')
+    @patch('todolist.todolist.logging.error')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_modify_task_status(self, mock_parse_args, mock_error, mock_save, mock_modified):
+        """Test the CLI modify task status."""
+        
+        # Mock the return value of parse_args
+        mock_parse_args.return_value = Mock(nom='Test Task', modify=True, description=None, status='completed', projet=None, add=False, delete=False, list=False, terminate=False)
+        
+        try:
+            main()
+        except SystemExit as e:
+            self.fail(f"SystemExit was raised: {e}")
+        
+        mock_modified.assert_called_with('Test Task', description=None, status='completed', projet=None)
+
+
+
+    @patch('todolist.todolist.ToDoList.modified')
+    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    def test_cli_modify_task_multiple_attrs(self, mock_args, mock_modify):
+        """Test the CLI modify task with multiple attributes."""
+        mock_args.return_value = MagicMock(nom="Test Task", description="New Description", status="completed", add=False, modify=True, delete=False, list=False, completed=False, projet="Mocked Project")
+        
+        main()
+
+        mock_modify.assert_called_with("Test Task", description="New Description", status="completed", projet="Mocked Project")
+
+
 
 
 if __name__ == '__main__':

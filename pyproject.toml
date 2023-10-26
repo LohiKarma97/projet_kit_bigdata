@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.10.12"
 
+[tool.poetry.scripts]
+todolist = "todolist.todolist:main"
+
 
 [tool.poetry.group.dev.dependencies]
 sphinx = "^7.2.6"

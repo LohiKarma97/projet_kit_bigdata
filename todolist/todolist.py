@@ -17,8 +17,10 @@ class ToDoList:
         """Display Tache in ToDoList which status is "en cours" ."""
         try:
             for t in self.liste_taches:
-                #print(t.__str__())
-                if t.status==TacheStatus.EN_COURS : print(t.afficher()) #A filtrer pour avoir uniquepment taches actives
+                # print(t.__str__())
+                if t.status == TacheStatus.EN_COURS:
+                    # A filtrer pour avoir uniquepment taches actives
+                    print(t.afficher())
         except Exception as e:
             logging.error(f"Error displaying Tache en cours: {e}")
 
@@ -43,21 +45,22 @@ class ToDoList:
         except Exception as e:
             logging.error(f"Error removing Tache: {e}")
 
-    def save_ToDoList(self,file:str='data.json'): #quel est l'output type ?
-        data=[]
-        for t in self.liste_taches: data.append(t.to_dict())
+    def save_ToDoList(self, file: str = 'data.json'):  # quel est l'output type ?
+        data = []
+        for t in self.liste_taches:
+            data.append(t.to_dict())
         with open(file, 'w') as f:
             json.dump(data, f)
 
-    def open_ToDoList(self,file:str='data.json'):# l'output = list ?
+    def open_ToDoList(self, file: str = 'data.json'):  # l'output = list ?
         with open(file, 'r') as f:
             data = json.load(f)
-        temp=ToDoList()
+        temp = ToDoList()
         for t in data:
-            t_recup=Tache(nom=t['nom'], 
-                      description=t['description'], 
-                      status=t['status'], 
-                      projet=t['projet'], 
-                      horodatage=t['horodatage'])
+            t_recup = Tache(nom=t['nom'],
+                            description=t['description'],
+                            status=t['status'],
+                            projet=t['projet'],
+                            horodatage=t['horodatage'])
             temp.ajouter(t_recup)
         return temp

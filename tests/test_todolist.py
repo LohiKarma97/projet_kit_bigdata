@@ -13,7 +13,7 @@ class TestToDoList(unittest.TestCase):
     def setUp(self) -> None:
         """Setup a new ToDoList for each test."""
         self.todo_list = ToDoList()
-        
+
     def print_test(func):
         def wrapper(*args, **kwargs):
             print('\nTODOLIST - Launching :', func.__name__)
@@ -76,45 +76,53 @@ class TestToDoList(unittest.TestCase):
     @print_test
     def test_afficher_taches_en_cours(self) -> None:
         """Test showing the ongoing task."""
-        tache1 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.EN_COURS)
-        tache2 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.A_FAIRE)
+        tache1 = Tache(
+            nom="Test Task", description="This is a test task.", status=TacheStatus.EN_COURS)
+        tache2 = Tache(
+            nom="Test Task", description="This is a test task.", status=TacheStatus.A_FAIRE)
         self.todo_list = ToDoList()
         self.todo_list.ajouter(tache1)
         self.todo_list.ajouter(tache2)
         self.todo_list.afficher_taches_en_cours()
-        
+
         with patch("builtins.print") as mock_print:
             self.todo_list.afficher_taches_en_cours()
         with patch("builtins.print") as mock_print_tache1:
-            tache1.afficher()        
+            tache1.afficher()
         assert mock_print.call_args_list[0] == mock_print_tache1.call_args_list[0]
 
     @print_test
     def test_save_ToDoList(self):
-        tache1 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.EN_COURS)
-        tache2 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.A_FAIRE)
+        tache1 = Tache(
+            nom="Test Task", description="This is a test task.", status=TacheStatus.EN_COURS)
+        tache2 = Tache(
+            nom="Test Task", description="This is a test task.", status=TacheStatus.A_FAIRE)
         self.todo_list = ToDoList()
         self.todo_list.ajouter(tache1)
         self.todo_list.ajouter(tache2)
         self.todo_list.save_ToDoList()
-    
+
     @print_test
     def test_open_ToDoList(self):
-        tache1 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.EN_COURS)
-        tache2 = Tache(nom="Test Task", description="This is a test task.",status=TacheStatus.A_FAIRE)
+        tache1 = Tache(
+            nom="Test Task", description="This is a test task.", status=TacheStatus.EN_COURS)
+        tache2 = Tache(
+            nom="Test Task", description="This is a test task.", status=TacheStatus.A_FAIRE)
         self.todo_list = ToDoList()
         self.todo_list.ajouter(tache1)
         self.todo_list.ajouter(tache2)
         self.todo_list.save_ToDoList(file='test.json')
         with patch("builtins.print") as mock_print:
             self.todo_list.afficher_taches_en_cours()
-                    
-        self.todo_list_recup= ToDoList()
+
+        self.todo_list_recup = ToDoList()
         self.todo_list_recup.open_ToDoList(file='test.json')
         with patch("builtins.print") as mock_print_recup:
             self.todo_list.afficher_taches_en_cours()
-        
-        self.assertEqual(mock_print.call_args_list[0],mock_print_recup.call_args_list[0])
+
+        self.assertEqual(
+            mock_print.call_args_list[0], mock_print_recup.call_args_list[0])
+
 
 if __name__ == '__main__':
     unittest.main()

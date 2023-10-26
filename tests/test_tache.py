@@ -4,6 +4,7 @@ import logging
 from todolist.Tache import Tache, TacheStatus
 from unittest.mock import patch, MagicMock
 
+
 class TestTache(unittest.TestCase):
 
     def print_test(func):
@@ -42,12 +43,12 @@ class TestTache(unittest.TestCase):
         mock_print.assert_called_once_with(tache)
         logging.debug("Task displayed successfully.")
 
-
     @print_test
     def test_modifier(self):
         """Test modifying a task."""
         tache = Tache(nom="Test Task", description="This is a test task.")
-        tache.modifier(tache, projet="New Project", nom="New Name", description="New Description")
+        tache.modifier(tache, projet="New Project",
+                       nom="New Name", description="New Description")
         self.assertEqual(tache.projet, "New Project")
         self.assertEqual(tache.nom, "New Name")
         self.assertEqual(tache.description, "New Description")
@@ -75,23 +76,24 @@ class TestTache(unittest.TestCase):
 
         # Using a string instead of a Tache instance to trigger the ValueError.
         non_tache_object = "This is not a Tache instance."
-        
-        #with self.assertLogs(level="ERROR") as cm:
+
+        # with self.assertLogs(level="ERROR") as cm:
         #    self.assertLogs(non_tache_object.terminer(),"Provided object is not a Tache instance.")
         #    self.non_tache_object.terminer()
 
         # Check if the expected error message appears in the logs.
-        #self.assertTrue(any(
+        # self.assertTrue(any(
         #    "Error completing Tache: Provided object is not a Tache instance." in log for log in cm.output))
 
     @print_test
     def test_to_dict(self):
-        tache = Tache(nom="T2", description="Description 2", status=TacheStatus.EN_COURS, projet="Projet B", horodatage=1698269689)
+        tache = Tache(nom="T2", description="Description 2",
+                      status=TacheStatus.EN_COURS, projet="Projet B", horodatage=1698269689)
         self.assertEqual(tache.to_dict(), {'status': 'en cours',
-                'projet': 'Projet B',
-                'nom': 'T2',
-                'description': 'Description 2',
-                'horodatage': 1698269689})
+                                           'projet': 'Projet B',
+                                           'nom': 'T2',
+                                           'description': 'Description 2',
+                                           'horodatage': 1698269689})
 
     @print_test
     def test_str_representation(self):

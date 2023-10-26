@@ -19,26 +19,26 @@ class ToDoList:
 
         if tache.status == None:
             raise ValueError("Provided Tache has wrong status.")
-        
+
         if tache.nom == None or tache.nom == "":
             raise ValueError("Provided Tache has no name.")
-        
+
         if tache.description == None or tache.description == "":
             raise ValueError("Provided Tache has no description.")
-        
+
         if tache.horodatage == None or tache.horodatage == "":
             raise ValueError("Provided Tache has no horodatage.")
-        
+
         if tache.projet == None or tache.projet == "":
             raise ValueError("Provided Tache has no projet.")
-    
+
     def _is_in_list(self, tache: Tache):
         """Check if a Tache is in the list."""
         if tache in self._task_list:
             return True
         else:
             return False
-        
+
     def _name_exist(self, tache: str):
         """Check if a Tache is in the list.
         Return the Tache if it exist, else return None"""
@@ -55,18 +55,18 @@ class ToDoList:
                 logging.debug("Empty list")
             else:
                 for tache in self._task_list:
-                    if(status == None or tache.status == status):
+                    if (status == None or tache.status == status):
                         print(tache)
-                    
+
         except Exception as e:
             logging.error(f"Error displaying Tache: {e}")
-            
+
     def display(self, tache_name: str):
         """Display a Tache."""
         try:
 
             t = self._name_exist(tache_name)
-            
+
             if t == None:
                 logging.debug("Tache not found")
             else:
@@ -79,12 +79,13 @@ class ToDoList:
         """Add a Tache to the list."""
         try:
             self._check_tache_consistency(tache)
-            
+
             if self._is_in_list(tache):
                 raise ValueError("Provided Tache is already in the list.")
-            
+
             if self._name_exist(tache.nom) != None:
-                raise ValueError("A Tache with same name is already in the list.")
+                raise ValueError(
+                    "A Tache with same name is already in the list.")
 
             self._task_list.append(tache)
             logging.debug(f"Tache added: {tache}")
@@ -99,7 +100,7 @@ class ToDoList:
 
             if tache == None:
                 raise ValueError("Provided Tache is not in the list.")
-            
+
             self._task_list.remove(tache)
             logging.debug(f"Tache removed: {tache}")
 
@@ -110,30 +111,31 @@ class ToDoList:
         """Complete a Tache."""
         try:
             tache = self._name_exist(tache_name)
-            
+
             if tache == None:
                 raise ValueError("Provided Tache is not in the list.")
-            
+
             if tache.status == TacheStatus.COMPLETED:
                 raise ValueError("Provided Tache is already completed.")
-            
+
             tache.status = TacheStatus.COMPLETED
             logging.debug(f"Tache completed: {tache}")
 
         except Exception as e:
             logging.error(f"Error completing Tache: {e}")
 
-    def modified(self, tache_name : str, projet: str | None = None, horodatage=None, nom: str | None = None, description: str | None = None):
+    def modified(self, tache_name: str, projet: str | None = None, horodatage=None, nom: str | None = None, description: str | None = None):
         """Modify a Tache."""
         try:
             tache = self._name_exist(tache_name)
 
             if tache == None:
-                raise ValueError(f"Tache with name {tache_name} is not in the list.")
-            
+                raise ValueError(
+                    f"Tache with name {tache_name} is not in the list.")
+
             if not any([projet, horodatage, nom, description]):
                 raise ValueError("No arguments provided to modify Tache.")
-            
+
             if projet:
                 tache.projet = projet
             if horodatage:
@@ -146,7 +148,6 @@ class ToDoList:
             logging.debug(f"Tache modified: {tache}")
         except Exception as e:
             logging.error(f"Error modifying Tache: {e}")
-
 
     def save_ToDoList(self, file: str = 'data.json'):
         """Save the ToDoList in a file.
@@ -162,7 +163,6 @@ class ToDoList:
                 json.dump(data, f)
         except Exception as e:
             logging.error(f"Error saving file: {e}")
-
 
     def open_ToDoList(self, file: str = 'data.json'):
         """Open a file and load the ToDoList.
@@ -194,7 +194,7 @@ class ToDoList:
             logging.error(f"Error opening file: {e}")
 
 #
-#def main():
+# def main():
 #    parser = argparse.ArgumentParser(description='Manage a simple ToDo List.')
 #    parser.add_argument('-a', '--add', help='Add a new task to the list', type=str)
 #    parser.add_argument('-m', '--modify', help='Modify an existing task', nargs=2, metavar=('id', 'new_task'))
@@ -233,5 +233,5 @@ class ToDoList:
 #        status = todo_list.get_status(args.status)
 #        print(f"Status of task {args.status}: {status}")
 #
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    main()

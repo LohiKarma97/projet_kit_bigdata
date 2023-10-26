@@ -4,6 +4,7 @@ from todolist.Tache import Tache, TacheStatus
 import json
 import os
 
+
 class ToDoList:
     """Class to manage a list of Taches."""
 
@@ -60,7 +61,7 @@ class ToDoList:
         except Exception as e:
             logging.error(f"Error displaying Tache: {e}")
 
-        return  tasks_to_display
+        return tasks_to_display
 
     def display(self, tache_name: str):
         """Display a Tache."""
@@ -179,9 +180,10 @@ class ToDoList:
         """
         try:
             if not os.path.exists(file):
-                logging.debug(f"'{file}' does not exist. A new file will be created upon saving.")
+                logging.debug(
+                    f"'{file}' does not exist. A new file will be created upon saving.")
                 return
-            
+
             with open(file, 'r') as f:
                 data = json.load(f)
 
@@ -206,17 +208,25 @@ def main():
 
     # Primary Actions
     action_group = parser.add_mutually_exclusive_group(required=True)
-    action_group.add_argument('-a', '--add', action='store_true', help='Add a new task')
-    action_group.add_argument('-m', '--modify', action='store_true', help='Modify an existing task')
-    action_group.add_argument('-d', '--delete', action='store_true', help='Delete a task')
-    action_group.add_argument('-l', '--list', action='store_true', help='List all tasks')
-    action_group.add_argument('-t', '--terminate', action='store_true', help='Mark a task as completed')
+    action_group.add_argument(
+        '-a', '--add', action='store_true', help='Add a new task')
+    action_group.add_argument(
+        '-m', '--modify', action='store_true', help='Modify an existing task')
+    action_group.add_argument(
+        '-d', '--delete', action='store_true', help='Delete a task')
+    action_group.add_argument(
+        '-l', '--list', action='store_true', help='List all tasks')
+    action_group.add_argument(
+        '-t', '--terminate', action='store_true', help='Mark a task as completed')
 
     # Task Attributes
     parser.add_argument('--nom', type=str, help='Name of the task')
-    parser.add_argument('--description', type=str, default="No description provided", help='Description of the task')
-    parser.add_argument('--status', type=str, choices=['en cours', 'completed', 'à faire'], default='à faire', help='Status of the task')
-    parser.add_argument('--projet', type=str, default="Default Project", help='Project associated with the task')
+    parser.add_argument('--description', type=str,
+                        default="No description provided", help='Description of the task')
+    parser.add_argument('--status', type=str, choices=[
+                        'en cours', 'completed', 'à faire'], default='à faire', help='Status of the task')
+    parser.add_argument('--projet', type=str, default="Default Project",
+                        help='Project associated with the task')
 
     args = parser.parse_args()
 
@@ -224,25 +234,30 @@ def main():
 
     if args.add:
         if not args.nom:
-            logging.error("Error: The name of the task (--nom) is required to add a task.")
+            logging.error(
+                "Error: The name of the task (--nom) is required to add a task.")
             return
-        tache = Tache(nom=args.nom, description=args.description, status=TacheStatus(args.status), projet=args.projet)
+        tache = Tache(nom=args.nom, description=args.description,
+                      status=TacheStatus(args.status), projet=args.projet)
         todo_list.add(tache)
         print(f"Added task: {args.nom}")
         todo_list.save_ToDoList()
 
     elif args.modify:
         if not args.nom:
-            logging.error("Error: The name of the task (--nom) is required to modify a task.")
+            logging.error(
+                "Error: The name of the task (--nom) is required to modify a task.")
             return
-        todo_list.modified(args.nom, description=args.description, status=args.status, projet=args.projet)
+        todo_list.modified(args.nom, description=args.description,
+                           status=args.status, projet=args.projet)
         print(f"Modified task: {args.nom}")
         todo_list.save_ToDoList()
 
     elif args.delete:
         # Ensure '--nom' is provided
         if not args.nom:
-            logging.error("Error: The name of the task (--nom) is required to delete a task.")
+            logging.error(
+                "Error: The name of the task (--nom) is required to delete a task.")
             return
         todo_list.delete(args.nom)
         print(f"Deleted task: {args.nom}")
@@ -259,7 +274,8 @@ def main():
 
     elif args.terminate:
         if not args.nom:
-            print("Error: The name of the task (--nom) is required to mark a task as complete.")
+            print(
+                "Error: The name of the task (--nom) is required to mark a task as complete.")
             return
         todo_list.completed(args.nom)
         todo_list.save_ToDoList()

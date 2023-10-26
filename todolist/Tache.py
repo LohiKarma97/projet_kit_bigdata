@@ -105,4 +105,3 @@ class Tache:
     def __str__(self):
         """Returns a string representation of the Tache object."""
         return f"Tache(status={self.status.value}, projet={self.projet}, horodatage={self.horodatage}, nom={self.nom}, description={self.description})"
-

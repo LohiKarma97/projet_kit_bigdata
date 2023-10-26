@@ -17,8 +17,8 @@ class ToDoList:
         """Display Tache in ToDoList which status is "en cours" ."""
         try:
             for t in self.liste_taches:
-                print(t.__str__())
-                #if t.status==TacheStatus.EN_COURS : print(t.afficher()) #A filtrer pour avoir uniquepment taches actives
+                #print(t.__str__())
+                if t.status==TacheStatus.EN_COURS : print(t.afficher()) #A filtrer pour avoir uniquepment taches actives
         except Exception as e:
             logging.error(f"Error displaying Tache en cours: {e}")
 

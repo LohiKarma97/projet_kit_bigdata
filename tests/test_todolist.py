@@ -85,9 +85,9 @@ class TestToDoList(unittest.TestCase):
         
         with patch("builtins.print") as mock_print:
             self.todo_list.afficher_taches_en_cours()
-        
-        assert mock_print.call_args_list[0] == call(str(tache1))
-        logging.debug("Task displayed successfully.")
+        with patch("builtins.print") as mock_print_tache1:
+            tache1.afficher()        
+        assert mock_print.call_args_list[0] == mock_print_tache1.call_args_list[0]
 
     @print_test
     def test_save_ToDoList(self):

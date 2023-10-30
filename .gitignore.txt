@@ -4,7 +4,7 @@
 # Ignore Python cache files
 */__pycache__/*
 tests/__pycache__/
-todolist/__pycache__/
+todolist_lb_me_ab/__pycache__/
 
 #Ignore log files
 debug_logs.txt

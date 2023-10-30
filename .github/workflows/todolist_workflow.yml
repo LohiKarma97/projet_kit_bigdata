@@ -1,4 +1,4 @@
-name: Python CI/CD with Poetry for todolist
+name: Python CI/CD with Poetry for todolist_lb_me_ab
 
 on:
   push:

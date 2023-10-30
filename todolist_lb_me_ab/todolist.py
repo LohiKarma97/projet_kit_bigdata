@@ -1,6 +1,6 @@
 import argparse
 import logging
-from todolist.Tache import Tache, TacheStatus
+from todolist_lb_me_ab.Tache import Tache, TacheStatus
 import json
 import os
 
@@ -120,6 +120,7 @@ class ToDoList:
             logging.error(f"Error removing Tache: {e}")
 
             return False
+
     def completed(self, tache_name: str):
         """Complete a Tache."""
         try:
@@ -187,7 +188,7 @@ class ToDoList:
                 json.dump(data, f)
 
             return True
-        
+
         except Exception as e:
             logging.error(f"Error saving file: {e}")
 
@@ -248,7 +249,8 @@ def main():
         '-t', '--terminate', action='store_true', help='Mark a task as completed. Example: --terminate --nom "Task1"')
 
     # Task Attributes
-    parser.add_argument('--nom', type=str, help='Specify the name of the task. Example for add/modify/delete/terminate: --nom "Task1"')
+    parser.add_argument(
+        '--nom', type=str, help='Specify the name of the task. Example for add/modify/delete/terminate: --nom "Task1"')
     parser.add_argument('--description', type=str,
                         default="No description provided", help='Provide a description for the task. Example: --description "Buy milk"')
     parser.add_argument('--status', type=str, choices=[
@@ -267,11 +269,12 @@ def main():
             return
         tache = Tache(nom=args.nom, description=args.description,
                       status=TacheStatus(args.status), projet=args.projet)
-        
+
         if todo_list.add(tache):
             print(f"Added task: {args.nom}")
         else:
-            print(f"Error adding task: {args.nom}, check logs for more details.")
+            print(
+                f"Error adding task: {args.nom}, check logs for more details.")
 
         todo_list.save_ToDoList()
 
@@ -280,13 +283,14 @@ def main():
             logging.error(
                 "Error: The name of the task (--nom) is required to modify a task.")
             return
-        
+
         if todo_list.modified(args.nom, description=args.description,
-                           status=args.status, projet=args.projet):
-            
+                              status=args.status, projet=args.projet):
+
             print(f"Modified task: {args.nom}")
         else:
-            print(f"Error modifying task: {args.nom}, check logs for more details.")
+            print(
+                f"Error modifying task: {args.nom}, check logs for more details.")
 
         todo_list.save_ToDoList()
 
@@ -296,11 +300,12 @@ def main():
             logging.error(
                 "Error: The name of the task (--nom) is required to delete a task.")
             return
-        
+
         if todo_list.delete(args.nom):
             print(f"Deleted task: {args.nom}")
         else:
-            print(f"Error deleting task: {args.nom}, check logs for more details.")
+            print(
+                f"Error deleting task: {args.nom}, check logs for more details.")
 
         todo_list.save_ToDoList()
 

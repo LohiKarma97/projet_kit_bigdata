@@ -1,9 +1,9 @@
 import unittest
 import os
-from todolist.todolist import ToDoList
-from todolist.Tache import Tache, TacheStatus
+from todolist_lb_me_ab.todolist import ToDoList
+from todolist_lb_me_ab.Tache import Tache, TacheStatus
 from unittest.mock import patch, MagicMock, Mock, ANY
-from todolist.todolist import main
+from todolist_lb_me_ab.todolist import main
 
 # Initialize logging for the test module
 # logging.basicConfig(level=logging.INFO)
@@ -315,8 +315,8 @@ class TestCLI(unittest.TestCase):
         # If there's any shared setup, put it here.
         pass
 
-    @patch('todolist.todolist.ToDoList.add')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.add')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_add_task_with_status(self, mock_args, mock_add):
         """Test the CLI add task with name and status."""
 
@@ -333,8 +333,8 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(tache_instance.nom, "Test Task")
         self.assertEqual(tache_instance.status, TacheStatus.EN_COURS)
 
-    @patch('todolist.todolist.ToDoList.add')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.add')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_add_task_with_description(self, mock_args, mock_add):
         """Test the CLI add task with name and description."""
 
@@ -350,8 +350,8 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(tache_instance.nom, "Test Task")
         self.assertEqual(tache_instance.description, "Test Description")
 
-    @patch('todolist.todolist.ToDoList.add')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.add')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_add_task_with_status(self, mock_args, mock_add):
         """Test the CLI add task with name and status."""
 
@@ -367,8 +367,8 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(tache_instance.nom, "Test Task")
         self.assertEqual(tache_instance.status, TacheStatus.EN_COURS)
 
-    @patch('todolist.todolist.ToDoList.add')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.add')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_add_task_all_args(self, mock_args, mock_add):
         """Test the CLI add task with all arguments."""
 
@@ -387,8 +387,8 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(tache_instance.status, TacheStatus.EN_COURS)
         self.assertEqual(tache_instance.projet, "Work Project")
 
-    @patch('todolist.todolist.ToDoList.modified')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.modified')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_modify_task_name(self, mock_args, mock_modify):
         """Test the CLI modify task name."""
         mock_args.return_value = MagicMock(nom="Original Task", new_nom="Modified Task", description=None,
@@ -399,10 +399,10 @@ class TestCLI(unittest.TestCase):
         mock_modify.assert_called_with(
             "Original Task", description=None, status=None, projet=ANY)
 
-    @patch('todolist.todolist.ToDoList.modified')
-    @patch('todolist.todolist.ToDoList.save_ToDoList')
-    @patch('todolist.todolist.logging.error')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.modified')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.save_ToDoList')
+    @patch('todolist_lb_me_ab.todolist.logging.error')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_modify_task_description(self, mock_args, mock_error, mock_save, mock_modified):
         """Test the CLI modify task description."""
 
@@ -414,10 +414,10 @@ class TestCLI(unittest.TestCase):
         mock_modified.assert_called_with(
             'Test Task', description='Updated Description', status=None, projet=ANY)
 
-    @patch('todolist.todolist.ToDoList.modified')
-    @patch('todolist.todolist.ToDoList.save_ToDoList')
-    @patch('todolist.todolist.logging.error')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.modified')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.save_ToDoList')
+    @patch('todolist_lb_me_ab.todolist.logging.error')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_modify_task_status(self, mock_parse_args, mock_error, mock_save, mock_modified):
         """Test the CLI modify task status."""
 
@@ -433,8 +433,8 @@ class TestCLI(unittest.TestCase):
         mock_modified.assert_called_with(
             'Test Task', description=None, status='completed', projet=None)
 
-    @patch('todolist.todolist.ToDoList.modified')
-    @patch('todolist.todolist.argparse.ArgumentParser.parse_args')
+    @patch('todolist_lb_me_ab.todolist.ToDoList.modified')
+    @patch('todolist_lb_me_ab.todolist.argparse.ArgumentParser.parse_args')
     def test_cli_modify_task_multiple_attrs(self, mock_args, mock_modify):
         """Test the CLI modify task with multiple attributes."""
         mock_args.return_value = MagicMock(nom="Test Task", description="New Description", status="completed",

@@ -72,3 +72,16 @@ jobs:
       - run: curl -sSL https://install.python-poetry.org | python3 -
       - run: poetry install
       - run: poetry build
+      
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Only deploy from main branch
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
+        with:
+          python-version: '3.11'
+      - run: curl -sSL https://install.python-poetry.org | python3 -
+      - run: poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}  # Set PyPI token
+      - run: poetry publish --build

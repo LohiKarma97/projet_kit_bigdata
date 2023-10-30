@@ -74,8 +74,12 @@ class ToDoList:
             else:
                 print(t)
 
+            return True
+
         except Exception as e:
             logging.error(f"Error displaying Tache en cours: {e}")
+
+            return False
 
     def add(self, tache: Tache):
         """Add a Tache to the list."""
@@ -92,8 +96,12 @@ class ToDoList:
             self._task_list.append(tache)
             logging.debug(f"Tache added: {tache}")
 
+            return True
+
         except Exception as e:
             logging.error(f"Error adding Tache: {e}")
+
+            return False
 
     def delete(self, tache_name: str):
         """Remove a Tache from the list."""
@@ -106,9 +114,12 @@ class ToDoList:
             self._task_list.remove(tache)
             logging.debug(f"Tache removed: {tache}")
 
+            return True
+
         except Exception as e:
             logging.error(f"Error removing Tache: {e}")
 
+            return False
     def completed(self, tache_name: str):
         """Complete a Tache."""
         try:
@@ -124,8 +135,12 @@ class ToDoList:
             tache.status = TacheStatus.COMPLETED
             logging.debug(f"Tache completed: {tache}")
 
+            return True
+
         except Exception as e:
             logging.error(f"Error completing Tache: {e}")
+
+            return False
 
     def modified(self, tache_name: str, projet: str | None = None, horodatage=None, nom: str | None = None, description: str | None = None, status: TacheStatus = None):
         """Modify a Tache."""
@@ -151,8 +166,12 @@ class ToDoList:
                 tache.status = TacheStatus(status)
 
             logging.debug(f"Tache modified: {tache}")
+
+            return True
         except Exception as e:
             logging.error(f"Error modifying Tache: {e}")
+
+            return False
 
     def save_ToDoList(self, file: str = 'data.json'):
         """Save the ToDoList in a file.
@@ -166,8 +185,13 @@ class ToDoList:
                 data.append(t.to_dict())
             with open(file, 'w') as f:
                 json.dump(data, f)
+
+            return True
+        
         except Exception as e:
             logging.error(f"Error saving file: {e}")
+
+            return False
 
     def open_ToDoList(self, file: str = 'data.json'):
         """Open a file and load the ToDoList.
@@ -199,8 +223,12 @@ class ToDoList:
                 logging.debug(f"Parsed tache: {t_recup}")
 
                 self.add(t_recup)
+
+            return True
         except Exception as e:
             logging.error(f"Error opening file: {e}")
+
+            return False
 
 
 def main():
@@ -209,24 +237,24 @@ def main():
     # Primary Actions
     action_group = parser.add_mutually_exclusive_group(required=True)
     action_group.add_argument(
-        '-a', '--add', action='store_true', help='Add a new task')
+        '-a', '--add', action='store_true', help='Add a new task to the ToDo list. Example: --add --nom "Task1" --description "Buy milk" --status "à faire"')
     action_group.add_argument(
-        '-m', '--modify', action='store_true', help='Modify an existing task')
+        '-m', '--modify', action='store_true', help='Modify an existing task in the ToDo list. Example: --modify --nom "Task1" --description "New description" --status "completed"')
     action_group.add_argument(
-        '-d', '--delete', action='store_true', help='Delete a task')
+        '-d', '--delete', action='store_true', help='Delete a task from the ToDo list. Example: --delete --nom "Task1"')
     action_group.add_argument(
-        '-l', '--list', action='store_true', help='List all tasks')
+        '-l', '--list', action='store_true', help='List all tasks in the ToDo list. Example: --list')
     action_group.add_argument(
-        '-t', '--terminate', action='store_true', help='Mark a task as completed')
+        '-t', '--terminate', action='store_true', help='Mark a task as completed. Example: --terminate --nom "Task1"')
 
     # Task Attributes
-    parser.add_argument('--nom', type=str, help='Name of the task')
+    parser.add_argument('--nom', type=str, help='Specify the name of the task. Example for add/modify/delete/terminate: --nom "Task1"')
     parser.add_argument('--description', type=str,
-                        default="No description provided", help='Description of the task')
+                        default="No description provided", help='Provide a description for the task. Example: --description "Buy milk"')
     parser.add_argument('--status', type=str, choices=[
-                        'en cours', 'completed', 'à faire'], default='à faire', help='Status of the task')
+                        'en cours', 'completed', 'à faire'], default='à faire', help='Set the status of the task. Example: --status "completed"')
     parser.add_argument('--projet', type=str, default="Default Project",
-                        help='Project associated with the task')
+                        help='Assign the task to a specific project. Example: --projet "Personal"')
 
     args = parser.parse_args()
 
@@ -239,8 +267,12 @@ def main():
             return
         tache = Tache(nom=args.nom, description=args.description,
                       status=TacheStatus(args.status), projet=args.projet)
-        todo_list.add(tache)
-        print(f"Added task: {args.nom}")
+        
+        if todo_list.add(tache):
+            print(f"Added task: {args.nom}")
+        else:
+            print(f"Error adding task: {args.nom}, check logs for more details.")
+
         todo_list.save_ToDoList()
 
     elif args.modify:
@@ -248,9 +280,14 @@ def main():
             logging.error(
                 "Error: The name of the task (--nom) is required to modify a task.")
             return
-        todo_list.modified(args.nom, description=args.description,
-                           status=args.status, projet=args.projet)
-        print(f"Modified task: {args.nom}")
+        
+        if todo_list.modified(args.nom, description=args.description,
+                           status=args.status, projet=args.projet):
+            
+            print(f"Modified task: {args.nom}")
+        else:
+            print(f"Error modifying task: {args.nom}, check logs for more details.")
+
         todo_list.save_ToDoList()
 
     elif args.delete:
@@ -259,8 +296,12 @@ def main():
             logging.error(
                 "Error: The name of the task (--nom) is required to delete a task.")
             return
-        todo_list.delete(args.nom)
-        print(f"Deleted task: {args.nom}")
+        
+        if todo_list.delete(args.nom):
+            print(f"Deleted task: {args.nom}")
+        else:
+            print(f"Error deleting task: {args.nom}, check logs for more details.")
+
         todo_list.save_ToDoList()
 
     elif args.list:
@@ -277,9 +318,11 @@ def main():
             print(
                 "Error: The name of the task (--nom) is required to mark a task as complete.")
             return
-        todo_list.completed(args.nom)
-        todo_list.save_ToDoList()
-        print(f"Task {args.nom} marked as complete.")
+        if todo_list.completed(args.nom):
+            todo_list.save_ToDoList()
+            print(f"Task {args.nom} marked as complete.")
+        else:
+            print(f"Error marking task {args.nom} as complete.")
 
 
 if __name__ == "__main__":

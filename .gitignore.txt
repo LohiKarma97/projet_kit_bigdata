@@ -15,3 +15,8 @@ test.json
 
 # Sphinx documentation build output
 docs/_build/
+
+# Ignore .coverage file
+.coverage
+
+/dist/

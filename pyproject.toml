@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "todolist"
+name = "todolist_lb_me_ab"
 version = "1.0.0"
 description = ""
 authors = ["Leo Barberis <leo.barberis@telecom-paris.fr>", "Marc Edouard <marc.edouard@telecom-paris.fr>", "Anaelle Baudant-Cojan <cojan-23@telecom-paris.fr>"]
